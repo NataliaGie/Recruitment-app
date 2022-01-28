@@ -1,57 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useState, Fragment } from 'react';
+import { Routes, Route } from "react-router";
+import LoginForm from "./components/LoginForm";
+import MainContent from "./components/MainContent";
+import GlobalStyles from "./globalStyles";
+import Theme from "./Theme";
 
 function App() {
+  const [user, setUser] = useState({name: "", email: "", password: ""});
+  const [error, setError] = useState("");
+
+  const logUser = details => {
+    console.log(details);
+
+    if (details.email !== "" && details.password.length >= 5) {
+         console.log("Logged in");
+         setUser({
+             name: details.name,
+             email: details.email,
+             password: details.password
+         });
+    } else if (details.password.length < 5 && details.email !== "" && details.name !== "") {
+        setError("Your password is too short!");
+    }
+      else {
+        setError("Uup, something went wrong!");
+    }
+  }
+
+  console.log(error);
+
+  const logoutUser = () => {
+    setUser({name: "", email: "", password: ""});
+    setError("");
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Fragment>
+      <Theme>
+      <GlobalStyles />
+        {(user.email != "" && user.name != "" && user.password.length >= 5) ? (
+            <MainContent name={user.name} logout={logoutUser} />
+        ) : (
+            <LoginForm login={logUser} error={error} />)}
+      </Theme>
+    </Fragment>
   );
 }
 
