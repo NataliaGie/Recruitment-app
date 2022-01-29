@@ -2,10 +2,11 @@ import styled from "styled-components";
 import Theme from "../Theme";
 
 export const LoginFormPage = styled.form`
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  min-width: 100vw;
   background: ${props => props.theme.colors.mainBlue};
   background: linear-gradient(100deg, rgb(30,141,206) 50%, rgba(240,240,240,1) 50%);
+  background-size: contain;
 `;
 
 export const MainTitle = styled.h1`
@@ -57,7 +58,8 @@ export const FormInput = styled.input`
   border: 1px solid #b2b2b2;
   padding-left: 10px;
   color: gray;
-  
+  background-color: rgba(255, 255, 255, 0.73);
+
   &:focus {
     outline: none;
   }

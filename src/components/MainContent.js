@@ -1,14 +1,31 @@
+import { useSelector } from "react-redux";
 import {
     MainContentContainer,
-    MainGreeting
+    MainGreeting,
+    CandidatesWrapper,
+    StrongerText
 } from "./MainContent.styles";
 import { LogoutButton } from "../ui/LogoutButton";
+import CandidateCard from "./CandidateCard";
 
-function MainContent ({ name, logout }) {
+const MainContent = ({ name, logout }) => {
+    const candidates = useSelector(state => state.candidatesData);
+    console.log(candidates);
     return (
         <MainContentContainer>
-            <MainGreeting>Welcome, {name}</MainGreeting>
+            <MainGreeting>Welcome, <StrongerText>{name}</StrongerText>!</MainGreeting>
             <LogoutButton onClick={logout}>logout</LogoutButton>
+            <CandidatesWrapper>
+                {candidates.map((candidate, index) => {
+                    return (
+                        <CandidateCard
+                            name={candidate.name}
+                            primarySkill={candidate.primarySkill}
+                            moreSkills={candidate.moreSkills}
+                            key={index}/>
+                    );
+                })}
+            </CandidatesWrapper>
         </MainContentContainer>
     );
 }
