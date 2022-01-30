@@ -14,8 +14,8 @@ import {
 function LoginForm({login, error}) {
     const [userInfo, setUserInfo] = useState({name: "", email: "", password: ""});
 
-    const submitHandler = e => {
-        e.preventDefault();
+    const submitHandler = event => {
+        event.preventDefault();
 
         login(userInfo);
     }

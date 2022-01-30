@@ -15,7 +15,7 @@ export const StrongerText = styled.strong`
 `;
 
 export const CandidatesWrapper = styled.div`
-  margin: 100px auto 30px;
+  margin: 60px auto 30px;
   width: 80vw;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
